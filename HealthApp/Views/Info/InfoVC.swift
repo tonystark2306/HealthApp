@@ -18,7 +18,7 @@ class InfoVC: UIViewController {
     @IBOutlet weak var updateButton: UIButton!
     
     private var cancellables = Set<AnyCancellable>()
-    private let dataManager = UserDataManager.shared
+    private let userDataManager = UserDataManager.shared
     
     var userData: UserData?
     private var selectedGender: String = "Male"
@@ -139,7 +139,7 @@ class InfoVC: UIViewController {
                 height: heightTF.textField.text?.trimmingCharacters(in: .whitespaces) ?? "",
                 gender: selectedGender
             )
-            dataManager.updateProfile(resultData)
+            userDataManager.updateProfile(resultData)
         } else {
             resultData = UserData(
                 firstName: firstNameTF.textField.text?.trimmingCharacters(in: .whitespaces) ?? "",
@@ -148,7 +148,7 @@ class InfoVC: UIViewController {
                 height: heightTF.textField.text?.trimmingCharacters(in: .whitespaces) ?? "",
                 gender: selectedGender
             )
-            dataManager.addProfile(resultData)
+            userDataManager.addProfile(resultData)
         }
         
         navigationController?.popViewController(animated: true)

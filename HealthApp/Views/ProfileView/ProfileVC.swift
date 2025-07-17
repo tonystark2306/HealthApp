@@ -18,7 +18,7 @@ class ProfileVC: UIViewController {
     @IBOutlet weak var genderValue: UILabel!
     @IBOutlet weak var editButton: UIButton!
     private var cancellables = Set<AnyCancellable>()
-    private let dataManager = UserDataManager.shared
+    private let userDataManager = UserDataManager.shared
     private var currentUserData: UserData?
     
     override func viewDidLoad() {
@@ -72,7 +72,7 @@ class ProfileVC: UIViewController {
     }
     
     private func setupCombineBindings() {
-        dataManager.$profiles
+        userDataManager.$profiles
             .receive(on: DispatchQueue.main)
             .sink { [weak self] profiles in
                 guard let self = self,
@@ -104,7 +104,7 @@ class ProfileVC: UIViewController {
         )
         
         let deleteAction = UIAlertAction(title: "Yes", style: .destructive) { [weak self] _ in
-            self?.dataManager.deleteProfile(userData.id)
+            self?.userDataManager.deleteProfile(userData.id)
             self?.navigationController?.popViewController(animated: true)
         }
         
