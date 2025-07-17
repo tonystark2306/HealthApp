@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import Combine
 
 class ListVC: UIViewController {
     
-    private var profiles: [UserData] = []
+    private var cancellables = Set<AnyCancellable>()
+    private let userDataManager = UserDataManager.shared
     
     private let tableView: UITableView = {
         let tableView = UITableView()
@@ -70,12 +72,7 @@ class ListVC: UIViewController {
         super.viewDidLoad()
         setupUI()
         setupTableView()
-        updateUI()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        updateUI()
+        setupCombineBindings()
     }
     
     private func setupUI() {
@@ -114,6 +111,15 @@ class ListVC: UIViewController {
         tableView.register(ProfileTableViewCell.self, forCellReuseIdentifier: "ProfileCell")
     }
     
+    private func setupCombineBindings() {
+        userDataManager.$profiles
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] profiles in
+                self?.updateUI()
+            }
+            .store(in: &cancellables)
+    }
+    
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -147,7 +153,7 @@ class ListVC: UIViewController {
     }
     
     private func updateUI() {
-        let isEmpty = profiles.isEmpty
+        let isEmpty = userDataManager.profiles.isEmpty
         emptyStateView.isHidden = !isEmpty
         tableView.isHidden = isEmpty
         
@@ -158,51 +164,24 @@ class ListVC: UIViewController {
     
     @objc private func addProfileButtonTapped() {
         let informationVC = InfoVC()
-        informationVC.onDataUpdated = { [weak self] userData in
-            self?.addNewProfile(userData)
-        }
         navigationController?.pushViewController(informationVC, animated: true)
     }
     
-    private func addNewProfile(_ userData: UserData) {
-        profiles.append(userData)
-        navigationController?.popToViewController(self, animated: true)
-        updateUI()
-    }
-    
     private func navigateToProfile(with userData: UserData) {
-            let profileVC = ProfileVC()
-            profileVC.setUserData(userData)
-            profileVC.onDataUpdated = { [weak self] updatedData in
-                self?.updateProfile(updatedData)
-            }
-            profileVC.onProfileDeleted = { [weak self] in
-                self?.deleteProfile(userData.id)
-            }
-            navigationController?.pushViewController(profileVC, animated: true)
-        }
-    
-    private func updateProfile(_ updatedData: UserData) {
-        if let index = profiles.firstIndex(where: { $0.id == updatedData.id }) {
-            profiles[index] = updatedData
-            updateUI()
-        }
-    }
-    
-    private func deleteProfile(_ profileId: UUID) {
-        profiles.removeAll { $0.id == profileId }
-        updateUI()
+        let profileVC = ProfileVC()
+        profileVC.setUserData(userData)
+        navigationController?.pushViewController(profileVC, animated: true)
     }
 }
 
 extension ListVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return profiles.count
+        return userDataManager.profiles.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileCell", for: indexPath) as! ProfileTableViewCell
-        cell.configure(with: profiles[indexPath.row])
+        cell.configure(with: userDataManager.profiles[indexPath.row])
         return cell
     }
     
@@ -212,11 +191,10 @@ extension ListVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        navigateToProfile(with: profiles[indexPath.row])
+        navigateToProfile(with: userDataManager.profiles[indexPath.row])
     }
 }
 
 #Preview {
     ListVC()
 }
-

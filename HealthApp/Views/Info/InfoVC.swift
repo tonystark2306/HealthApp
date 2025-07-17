@@ -6,25 +6,21 @@
 //
 
 import UIKit
+import Combine
 
 class InfoVC: UIViewController {
     
     @IBOutlet weak var firstNameTF: CustomTF!
-    
     @IBOutlet weak var lastNameTF: CustomTF!
-    
     @IBOutlet weak var weightTF: CustomTF!
-    
     @IBOutlet weak var heightTF: CustomTF!
-    
     @IBOutlet weak var genderSC: UISegmentedControl!
-   
     @IBOutlet weak var updateButton: UIButton!
     
+    private var cancellables = Set<AnyCancellable>()
+    private let dataManager = UserDataManager.shared
+    
     var userData: UserData?
-    
-    var onDataUpdated: ((UserData) -> Void)?
-    
     private var selectedGender: String = "Male"
     
     override func viewDidLoad() {
@@ -37,7 +33,6 @@ class InfoVC: UIViewController {
     }
     
     private func setupUI() {
-        
         firstNameTF.setPlaceholder("Enter first name...")
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: 0))
         firstNameTF.textField.leftView = paddingView
@@ -62,11 +57,9 @@ class InfoVC: UIViewController {
         updateButton.layer.cornerRadius = 16
         updateButton.isEnabled = false
         updateButton.translatesAutoresizingMaskIntoConstraints = false
-
     }
     
     private func setupNavigationBar() {
-
         navigationController?.setNavigationBarHidden(false, animated: true)
         
         navigationController?.navigationBar.titleTextAttributes = [
@@ -129,11 +122,9 @@ class InfoVC: UIViewController {
         updateButton.isEnabled = isValid
         if isValid {
             updateButton.backgroundColor = UIColor(named: "activeButton")
-        }
-        else {
+        } else {
             updateButton.backgroundColor = UIColor(named: "inactiveButton")
         }
-        
     }
     
     @objc private func updateButtonTapped() {
@@ -148,6 +139,7 @@ class InfoVC: UIViewController {
                 height: heightTF.textField.text?.trimmingCharacters(in: .whitespaces) ?? "",
                 gender: selectedGender
             )
+            dataManager.updateProfile(resultData)
         } else {
             resultData = UserData(
                 firstName: firstNameTF.textField.text?.trimmingCharacters(in: .whitespaces) ?? "",
@@ -156,9 +148,9 @@ class InfoVC: UIViewController {
                 height: heightTF.textField.text?.trimmingCharacters(in: .whitespaces) ?? "",
                 gender: selectedGender
             )
+            dataManager.addProfile(resultData)
         }
         
-        onDataUpdated?(resultData)
         navigationController?.popViewController(animated: true)
     }
 }

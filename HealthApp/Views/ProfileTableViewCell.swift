@@ -69,7 +69,6 @@ class ProfileTableViewCell: UITableViewCell {
         
         contentView.addSubview(containerView)
         containerView.addSubview(avatarIconView)
-        //avatarView.addSubview(avatarIconView)
         containerView.addSubview(nameLabel)
         containerView.addSubview(detailLabel)
         containerView.addSubview(chevronImageView)
@@ -85,7 +84,6 @@ class ProfileTableViewCell: UITableViewCell {
             avatarIconView.widthAnchor.constraint(equalToConstant: 50),
             avatarIconView.heightAnchor.constraint(equalToConstant: 50),
     
-            
             nameLabel.leadingAnchor.constraint(equalTo: avatarIconView.trailingAnchor, constant: 16),
             nameLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 16),
             nameLabel.trailingAnchor.constraint(equalTo: chevronImageView.leadingAnchor, constant: -16),
@@ -107,8 +105,4 @@ class ProfileTableViewCell: UITableViewCell {
         detailLabel.text = "W: \(userData.weight)kg  -  H: \(userData.height)cm"
     }
     
-}
-
-#Preview {
-    ProfileTableViewCell()
 }
