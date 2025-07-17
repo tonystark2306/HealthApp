@@ -21,8 +21,6 @@ class ProfileVC: UIViewController {
     private let dataManager = UserDataManager.shared
     private var currentUserData: UserData?
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Profile"
@@ -53,7 +51,7 @@ class ProfileVC: UIViewController {
         
         navigationController?.navigationBar.titleTextAttributes = [
             NSAttributedString.Key.foregroundColor: UIColor.black,
-            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18, weight: .bold)
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .bold)
         ]
         
         navigationController?.navigationBar.tintColor = .black

@@ -1,5 +1,5 @@
 //
-//  DataManager.swift
+//  UserDataManager.swift
 //  HealthApp
 //
 //  Created by iKame Elite Fresher 2025 on 7/17/25.
@@ -33,3 +33,4 @@ class UserDataManager: ObservableObject {
         return profiles.first { $0.id == id }
     }
 }
+
