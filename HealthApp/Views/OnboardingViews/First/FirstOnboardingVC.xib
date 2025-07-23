@@ -11,7 +11,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FirstOnboardingVC" customModule="HealthApp" customModuleProvider="target">
             <connections>
-                <outlet property="didTappedContinue" destination="Oes-rV-vXz" id="d9j-7u-aNQ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -38,6 +37,9 @@
                 </imageView>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="frontPhone" translatesAutoresizingMaskIntoConstraints="NO" id="IYI-xG-wfW">
                     <rect key="frame" x="131" y="276" width="239" height="424"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="IYI-xG-wfW" secondAttribute="height" multiplier="239:424" id="TrX-rO-yy1"/>
+                    </constraints>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oes-rV-vXz">
                     <rect key="frame" x="16" y="768" width="370" height="56"/>
@@ -52,6 +54,9 @@
                         <fontDescription key="titleFontDescription" type="boldSystem" pointSize="18"/>
                         <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </buttonConfiguration>
+                    <connections>
+                        <action selector="didTappedContinue:" destination="-1" eventType="touchUpInside" id="faG-wi-gKt"/>
+                    </connections>
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>

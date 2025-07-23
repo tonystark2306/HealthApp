@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SecondOnboardingVC" customModule="HealthApp" customModuleProvider="target">
+            <connections>
+                <outlet property="collectionView" destination="K8s-ax-dBQ" id="GWd-q2-iIS"/>
+                <outlet property="continueButton" destination="kQL-IL-K5b" id="6T3-ed-cJ8"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Which heart health issue concerns you the most?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nsn-EX-S7l">
+                    <rect key="frame" x="33" y="142" width="327" height="62.333333333333343"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
+                    <color key="textColor" name="neutral1"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="K8s-ax-dBQ">
+                    <rect key="frame" x="12" y="228.33333333333334" width="369" height="383.66666666666663"/>
+                    <color key="backgroundColor" name="bgColor"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="16" minimumInteritemSpacing="0.0" sectionInsetReference="layoutMargins" id="i4R-60-rcS">
+                        <size key="itemSize" width="128" height="128"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                </collectionView>
+                <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kQL-IL-K5b">
+                    <rect key="frame" x="16" y="712" width="361" height="56"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="56" id="2Q1-Jf-ypt"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" title="Continue">
+                        <backgroundConfiguration key="background" cornerRadius="16"/>
+                        <fontDescription key="titleFontDescription" type="boldSystem" pointSize="18"/>
+                        <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </buttonConfiguration>
+                    <connections>
+                        <action selector="didTappedContinue:" destination="-1" eventType="touchUpInside" id="HeF-hG-VLb"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" name="bgColor"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="K8s-ax-dBQ" secondAttribute="trailing" constant="12" id="22D-gF-z6c"/>
+                <constraint firstAttribute="trailing" secondItem="Nsn-EX-S7l" secondAttribute="trailing" constant="33" id="4I3-jG-AM1"/>
+                <constraint firstItem="K8s-ax-dBQ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="12" id="K7n-vV-hva"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="kQL-IL-K5b" secondAttribute="trailing" constant="16" id="QGT-qp-Mr6"/>
+                <constraint firstItem="kQL-IL-K5b" firstAttribute="top" secondItem="K8s-ax-dBQ" secondAttribute="bottom" constant="100" id="QLF-qQ-khS"/>
+                <constraint firstItem="kQL-IL-K5b" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="SwW-5G-fTS"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="kQL-IL-K5b" secondAttribute="bottom" constant="16" id="V4K-fI-oJM"/>
+                <constraint firstItem="Nsn-EX-S7l" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="33" id="dUH-X0-Ecq"/>
+                <constraint firstItem="Nsn-EX-S7l" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="24" id="tIW-73-usI"/>
+                <constraint firstItem="K8s-ax-dBQ" firstAttribute="top" secondItem="Nsn-EX-S7l" secondAttribute="bottom" constant="24" id="z14-Iv-cai"/>
+            </constraints>
+            <point key="canvasLocation" x="-103" y="-11"/>
+        </view>
+    </objects>
+    <resources>
+        <namedColor name="bgColor">
+            <color red="0.96078431372549022" green="0.96078431372549022" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="neutral1">
+            <color red="0.18431372549019609" green="0.20784313725490197" blue="0.28627450980392155" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

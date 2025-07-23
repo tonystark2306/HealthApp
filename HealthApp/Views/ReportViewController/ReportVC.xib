@@ -17,14 +17,6 @@
         <view contentMode="scaleToFill" id="CH5-2U-M4W">
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <subviews>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PGS-cT-IQO">
-                    <rect key="frame" x="159" y="210" width="75" height="39"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" title="Button"/>
-                </button>
-            </subviews>
             <viewLayoutGuide key="safeArea" id="bxg-er-Mt3"/>
             <color key="backgroundColor" name="Background1"/>
             <point key="canvasLocation" x="37" y="-120"/>

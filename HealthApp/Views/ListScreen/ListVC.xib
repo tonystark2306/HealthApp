@@ -17,8 +17,28 @@
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1O0-Ze-av2">
+                    <rect key="frame" x="149" y="416" width="95" height="20"/>
+                    <attributedString key="attributedText">
+                        <fragment content="Label bfgtsg">
+                            <attributes>
+                                <color key="NSBackgroundColor" red="0.83798283340000002" green="0.98512750859999998" blue="0.1464489698" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="NSColor" red="0.84159731859999998" green="0.16065436599999999" blue="0.14886787530000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <font key="NSFont" metaFont="system" size="17"/>
+                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                            </attributes>
+                        </fragment>
+                    </attributedString>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" name="bgColor"/>
+            <constraints>
+                <constraint firstItem="1O0-Ze-av2" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="GtB-b0-nAM"/>
+                <constraint firstItem="1O0-Ze-av2" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="gD3-xB-PL1"/>
+            </constraints>
             <point key="canvasLocation" x="132" y="-11"/>
         </view>
     </objects>

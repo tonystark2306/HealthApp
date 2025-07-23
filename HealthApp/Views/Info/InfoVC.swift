@@ -43,12 +43,12 @@ class InfoVC: UIViewController {
         lastNameTF.textField.leftView = paddingView1
         lastNameTF.textField.leftViewMode = .always
         
-        weightTF.setPlaceholder("Enter weight...")
+        weightTF.setPlaceholder("Kg")
         let paddingView2 = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: 0))
         weightTF.textField.leftView = paddingView2
         weightTF.textField.leftViewMode = .always
         
-        heightTF.setPlaceholder("Enter height...")
+        heightTF.setPlaceholder("Cm")
         let paddingView3 = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: 0))
         heightTF.textField.leftView = paddingView3
         heightTF.textField.leftViewMode = .always
