@@ -34,7 +34,7 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PoL-ah-6ql">
                         <rect key="frame" x="48" y="12.333333333333334" width="236" height="19.333333333333329"/>
                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
-                        <color key="textColor" name="neutral1"/>
+                        <color key="textColor" name="neutral7"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
@@ -59,8 +59,8 @@
     </objects>
     <resources>
         <image name="settingArrow" width="8" height="16"/>
-        <namedColor name="neutral1">
-            <color red="0.18431372549019609" green="0.20784313725490197" blue="0.28627450980392155" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="neutral7">
+            <color red="0.19215686274509805" green="0.20784313725490197" blue="0.27058823529411763" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
