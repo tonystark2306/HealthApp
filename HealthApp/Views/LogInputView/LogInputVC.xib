@@ -22,19 +22,19 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="top" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="CIJ-wx-yB5">
-                    <rect key="frame" x="16" y="142" width="361" height="84.333333333333314"/>
+                    <rect key="frame" x="16" y="142" width="361" height="83.333333333333314"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="6rk-PZ-udv">
-                            <rect key="frame" x="0.0" y="0.0" width="172.66666666666666" height="84.333333333333329"/>
+                            <rect key="frame" x="0.0" y="0.0" width="172.66666666666666" height="83.333333333333329"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pulse" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LTk-nF-0zk">
-                                    <rect key="frame" x="0.0" y="0.0" width="41.666666666666664" height="20.333333333333332"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="textColor"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="40.666666666666664" height="19.333333333333332"/>
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                    <color key="textColor" name="Neutral15"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O9o-So-yie" customClass="CustomTF" customModule="HealthApp" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="32.333333333333343" width="172.66666666666666" height="52"/>
+                                    <rect key="frame" x="0.0" y="31.333333333333343" width="172.66666666666666" height="52"/>
                                     <color key="backgroundColor" name="bgColor"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="52" id="cwO-by-7TN"/>
@@ -48,16 +48,16 @@
                             </constraints>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="Uex-oE-KdY">
-                            <rect key="frame" x="188.66666666666663" y="0.0" width="172.33333333333337" height="84.333333333333329"/>
+                            <rect key="frame" x="188.66666666666663" y="0.0" width="172.33333333333337" height="83.333333333333329"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HRV" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="28o-CE-PDV">
-                                    <rect key="frame" x="0.0" y="0.0" width="33.666666666666664" height="20.333333333333332"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <nil key="textColor"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="33" height="19.333333333333332"/>
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                    <color key="textColor" name="Neutral15"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6yv-36-DgX" customClass="CustomTF" customModule="HealthApp" customModuleProvider="target">
-                                    <rect key="frame" x="0.0" y="32.333333333333343" width="172.33333333333334" height="52"/>
+                                    <rect key="frame" x="0.0" y="31.333333333333343" width="172.33333333333334" height="52"/>
                                     <color key="backgroundColor" name="bgColor"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="52" id="sOa-FL-1l1"/>
@@ -103,6 +103,9 @@
         </view>
     </objects>
     <resources>
+        <namedColor name="Neutral15">
+            <color red="0.34901960784313724" green="0.38039215686274508" blue="0.47843137254901963" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="bgColor">
             <color red="0.96078431372549022" green="0.96078431372549022" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

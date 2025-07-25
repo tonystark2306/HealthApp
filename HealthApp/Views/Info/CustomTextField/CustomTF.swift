@@ -8,23 +8,23 @@
 import UIKit
 
 class CustomTF: UIView {
-
+    
     @IBOutlet weak var textField: UITextField!
     
     override init(frame: CGRect) {
-            super.init(frame: frame)
-            loadFromNib()
-        }
-
-        required init?(coder: NSCoder) {
-            super.init(coder: coder)
-            loadFromNib()
-        }
+        super.init(frame: frame)
+        loadFromNib()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        loadFromNib()
+    }
+    
+    override func layoutSubviews() {
         
-        override func layoutSubviews() {
-            
-        }
-        
+    }
+    
     private func loadFromNib() {
         let nib = UINib(nibName: "CustomTF", bundle: nil)
         let nibView = nib.instantiate(withOwner: self).first as! UIView
@@ -43,10 +43,10 @@ class CustomTF: UIView {
     
     func setPlaceholder(_ text: String) {
         let attributes: [NSAttributedString.Key: Any] = [
-          .foregroundColor: UIColor.neutral3,
-          .font: UIFont.systemFont(ofSize: 16, weight: .regular)
+            .foregroundColor: UIColor.neutral3,
+            .font: UIFont.systemFont(ofSize: 16, weight: .regular)
         ]
         textField.attributedPlaceholder = NSAttributedString(string: text, attributes: attributes)
     }
-
+    
 }
