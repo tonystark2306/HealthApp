@@ -6,7 +6,7 @@ class SettingVC: UIViewController {
     struct SettingsItem {
         let title: String
         let icon: String
-        let iconColor: UIColor = UIColor(named: "primary1")!
+        let iconColor: UIColor = UIColor(named: "primary1") ?? UIColor.systemBlue
     }
     
     let settingsData: [[SettingsItem]] = [
@@ -28,8 +28,7 @@ class SettingVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Settings"
-        setupUI()
+        setupNavigationBar()
         setupTableView()
     }
     
@@ -38,9 +37,13 @@ class SettingVC: UIViewController {
         tabBarController?.tabBar.isHidden = false
     }
     
-    private func setupUI() {
-        view.backgroundColor = UIColor(named: "bgColor")
-        navigationController?.setNavigationBarHidden(true, animated: false)
+    private func setupNavigationBar() {
+        let titleLabel = UILabel()
+        titleLabel.text = "Settings"
+        titleLabel.font = .systemFont(ofSize: 32, weight: .semibold)
+        titleLabel.textColor = UIColor.neutral1
+        titleLabel.sizeToFit()
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
     }
     
     private func setupTableView() {
@@ -58,8 +61,6 @@ class SettingVC: UIViewController {
             tableView.sectionHeaderTopPadding = 0
         }
     }
-    
-
 }
 
 extension SettingVC: UITableViewDataSource {
@@ -73,7 +74,7 @@ extension SettingVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell", for: indexPath) as! SettingCell;
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell", for: indexPath) as! SettingCell
         
         let item = settingsData[indexPath.section][indexPath.row]
         let isFirstCell = indexPath.row == 0
@@ -119,10 +120,59 @@ extension SettingVC: UITableViewDelegate {
     }
     
     private func navigateToProfile() {
-        print("Navigate to Profile")
+        if UserDataManager.shared.hasUserData() {
+            navigateToProfileScreen()
+        } else {
+            navigateToInfoScreen()
+        }
     }
-}
-
-#Preview {
-    SettingVC()
+    
+    private func navigateToProfileScreen() {
+        let profileVC = ProfileVC()
+        
+        if let userData = UserDataManager.shared.currentUserData {
+            profileVC.setupWithUserData(userData)
+        }
+        
+        profileVC.onDataUpdated = { [weak self] updatedData in
+            UserDataManager.shared.saveUserData(updatedData)
+        }
+        
+        profileVC.onProfileDeleted = { [weak self] in
+            UserDataManager.shared.deleteUserData()
+        }
+        
+        navigationController?.pushViewController(profileVC, animated: true)
+    }
+    
+    private func navigateToInfoScreen() {
+        let informationVC = InfoVC()
+        
+        informationVC.onDataUpdated = { [weak self] newData in
+            UserDataManager.shared.saveUserData(newData)
+            DispatchQueue.main.async {
+                self?.navigateToProfileFromInfo(with: newData)
+            }
+        }
+        
+        navigationController?.pushViewController(informationVC, animated: true)
+    }
+    
+    private func navigateToProfileFromInfo(with userData: UserData) {
+        let profileVC = ProfileVC()
+        
+        profileVC.setupWithUserData(userData)
+        profileVC.onDataUpdated = { updatedData in
+            UserDataManager.shared.saveUserData(updatedData)
+        }
+        
+        profileVC.onProfileDeleted = {
+            UserDataManager.shared.deleteUserData()
+        }
+        var viewControllers = navigationController?.viewControllers ?? []
+        if viewControllers.count > 1 {
+            viewControllers[viewControllers.count - 1] = profileVC
+            navigationController?.setViewControllers(viewControllers, animated: true)
+        }
+    }
 }

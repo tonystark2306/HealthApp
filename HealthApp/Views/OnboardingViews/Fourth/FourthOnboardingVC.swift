@@ -8,11 +8,11 @@
 import UIKit
 
 class FourthOnboardingVC: UIViewController {
-
+    
     @IBOutlet weak var collectionView: UICollectionView!
     
     @IBOutlet weak var continueButton: UIButton!
-
+    
     private let options: [(title: String, imageName: String)] = [
         ("Educational Plan", "educationalPlan"),
         ("Exercise Plan", "exercisePlan"),
@@ -20,13 +20,14 @@ class FourthOnboardingVC: UIViewController {
     ]
     
     private var selectedIndexes: Set<Int> = []
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
     }
     
     private func setupUI() {
+        navigationController?.setNavigationBarHidden(true, animated: false)
         continueButton.backgroundColor = UIColor(named: "inactiveButton")
         continueButton.layer.cornerRadius = 16
         collectionView.delegate = self
@@ -35,7 +36,7 @@ class FourthOnboardingVC: UIViewController {
         
     }
     
-
+    
     private func updateContinueButtonState() {
         let isAnySelected = !selectedIndexes.isEmpty
         if isAnySelected {
@@ -52,7 +53,14 @@ class FourthOnboardingVC: UIViewController {
     
     @IBAction func didTappedContinue(_ sender: Any) {
         let nextVC = MainTabBarController()
-        navigationController?.pushViewController(nextVC, animated: true)
+        UserDefaults.standard.set(true, forKey: "hasSeenOnboarding")
+        
+        
+        if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = scene.windows.first {
+            window.rootViewController = nextVC
+            window.makeKeyAndVisible()
+        }
     }
 }
 

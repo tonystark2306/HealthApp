@@ -8,10 +8,10 @@
 import UIKit
 
 class ThirdOnboardingVC: UIViewController {
-
+    
     @IBOutlet weak var continueButton: UIButton!
     @IBOutlet weak var collectionView: UICollectionView!
-
+    
     private let options: [(title: String, imageName: String)] = [
         ("Improve Heart Health", "improveHeartHealth"),
         ("Improve blood pressure health", "improveBloodPressure"),
@@ -20,13 +20,14 @@ class ThirdOnboardingVC: UIViewController {
     ]
     
     private var selectedIndexes: Set<Int> = []
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
     }
     
     private func setupUI() {
+        navigationController?.setNavigationBarHidden(true, animated: false)
         continueButton.backgroundColor = UIColor(named: "inactiveButton")
         continueButton.layer.cornerRadius = 16
         collectionView.delegate = self
@@ -35,7 +36,7 @@ class ThirdOnboardingVC: UIViewController {
         
     }
     
-
+    
     private func updateContinueButtonState() {
         let isAnySelected = !selectedIndexes.isEmpty
         if isAnySelected {
@@ -48,11 +49,6 @@ class ThirdOnboardingVC: UIViewController {
             continueButton.backgroundColor = UIColor(named: "inactiveButton")
         }
     }
-    
-//    @objc private func didTapContinue() {
-////        let nextVC = ThirdOnboardingViewController()
-////        navigationController?.pushViewController(nextVC, animated: true)
-//    }
     
     @IBAction func didTappedContinue(_ sender: Any) {
         let nextVC = FourthOnboardingVC()

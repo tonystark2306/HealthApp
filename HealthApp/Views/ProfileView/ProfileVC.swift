@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Combine
 
 class ProfileVC: UIViewController {
     
@@ -17,32 +16,28 @@ class ProfileVC: UIViewController {
     @IBOutlet weak var heightValue: UILabel!
     @IBOutlet weak var genderValue: UILabel!
     @IBOutlet weak var editButton: UIButton!
-    private var cancellables = Set<AnyCancellable>()
-    private let userDataManager = UserDataManager.shared
+    var onDataUpdated: ((UserData) -> Void)?
+    var onProfileDeleted: (() -> Void)?
+    
     private var currentUserData: UserData?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Profile"
         setupUI()
         setupNavigationBar()
-        setupCombineBindings()
-        setupEditButton()
-        updateProfileDisplay()
+        updateUI()
     }
     
-    private func setupUI() {
-        containerView.clipsToBounds = true
-        containerView.backgroundColor = .white
-        containerView.layer.cornerRadius = 16
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-        
-        if currentUserData == nil {
-            userNameLabel.text = "----"
-            bmiValueLabel.text = "---"
-            weightValue.text = "-- kg"
-            heightValue.text = "-- cm"
-            genderValue.text = "--"
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = true
+        updateUI()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if isMovingFromParent {
+            tabBarController?.tabBar.isHidden = false
         }
     }
     
@@ -51,100 +46,99 @@ class ProfileVC: UIViewController {
         
         navigationController?.navigationBar.titleTextAttributes = [
             NSAttributedString.Key.foregroundColor: UIColor.black,
-            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 20, weight: .bold)
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18, weight: .bold)
         ]
         
         navigationController?.navigationBar.tintColor = .black
-        navigationItem.backButtonTitle = ""
-        
-        let deleteButton = UIBarButtonItem(
-            image: UIImage(named: "deleteButton"),
+   
+        navigationItem.hidesBackButton = true
+
+        let backImage = UIImage(named: "backButton")?.withRenderingMode(.alwaysOriginal)
+        let backButton = UIBarButtonItem(
+            image: backImage,
             style: .plain,
             target: self,
-            action: #selector(deleteButtonTapped)
+            action: #selector(backButtonTapped)
         )
-        deleteButton.tintColor = .red
-        navigationItem.rightBarButtonItem = deleteButton
-    }
-    
-    private func setupEditButton() {
-        editButton.addTarget(self, action: #selector(editButtonTapped), for: .touchUpInside)
-    }
-    
-    private func setupCombineBindings() {
-        userDataManager.$profiles
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] profiles in
-                guard let self = self,
-                      let currentData = self.currentUserData else { return }
-                
-                if let updatedData = profiles.first(where: { $0.id == currentData.id }) {
-                    self.currentUserData = updatedData
-                    self.updateProfileDisplay()
-                } else {
-                    self.navigationController?.popViewController(animated: true)
-                }
-            }
-            .store(in: &cancellables)
-    }
-    
-    @objc private func editButtonTapped() {
-        let infoVC = InfoVC()
-        infoVC.userData = currentUserData
-        navigationController?.pushViewController(infoVC, animated: true)
-    }
-    
-    @objc private func deleteButtonTapped() {
-        guard let userData = currentUserData else { return }
-        
-        let alert = UIAlertController(
-            title: "Delete Profile",
-            message: "Are you sure you want to delete this profile?",
-            preferredStyle: .alert
+        navigationItem.leftBarButtonItem = backButton
+
+        let editButton = UIBarButtonItem(
+            title: "Edit",
+            style: .plain,
+            target: self,
+            action: #selector(editButtonTapped)
         )
-        
-        let deleteAction = UIAlertAction(title: "Yes", style: .destructive) { [weak self] _ in
-            self?.userDataManager.deleteProfile(userData.id)
-            self?.navigationController?.popViewController(animated: true)
-        }
-        
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
-        
-        alert.addAction(deleteAction)
-        alert.addAction(cancelAction)
-        
-        present(alert, animated: true)
+        editButton.setTitleTextAttributes([
+            NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .semibold),
+            NSAttributedString.Key.foregroundColor: UIColor.primary2
+        ], for: .normal)
+        navigationItem.rightBarButtonItem = editButton
     }
     
-    func setUserData(_ userData: UserData) {
+    @objc private func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    private func setupUI() {
+        title = "Profile"
+        containerView.clipsToBounds = true
+        containerView.backgroundColor = .white
+        containerView.layer.cornerRadius = 16
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    func setupWithUserData(_ userData: UserData) {
         currentUserData = userData
         if isViewLoaded {
-            updateProfileDisplay()
+            updateUI()
         }
     }
     
-    private func updateProfileDisplay() {
-        guard let userData = currentUserData else { return }
+    private func updateUI() {
+        guard isViewLoaded,
+              userNameLabel != nil,
+              bmiValueLabel != nil,
+              weightValue != nil,
+              heightValue != nil,
+              genderValue != nil else {
+            return
+        }
+        
+        guard let userData = currentUserData else {
+            userNameLabel.text = "----"
+            bmiValueLabel.text = "---"
+            weightValue.text = "---"
+            heightValue.text = "---"
+            genderValue.text = "---"
+            return
+        }
+        
         userNameLabel.text = "\(userData.firstName) \(userData.lastName)"
         weightValue.text = "\(userData.weight) kg"
         heightValue.text = "\(userData.height) cm"
         genderValue.text = userData.gender
-        let bmi = calculateBMI(weight: userData.weight, height: userData.height)
-        bmiValueLabel.text = String(format: "%.1f", bmi)
+        
+        if let weight = Double(userData.weight), let height = Double(userData.height), height > 0 {
+            let heightInMeters = height / 100
+            let bmi = weight / (heightInMeters * heightInMeters)
+            bmiValueLabel.text = String(format: "%.1f", bmi)
+        } else {
+            bmiValueLabel.text = "---"
+        }
     }
     
-    private func calculateBMI(weight: String, height: String) -> Double {
-        guard let weightDouble = Double(weight),
-              let heightDouble = Double(height),
-              heightDouble > 0 else {
-            return 0.0
+    @objc private func editButtonTapped() {
+        let informationVC = InfoVC()
+        informationVC.userData = currentUserData
+        informationVC.onDataUpdated = { [weak self] updatedData in
+            self?.updateUserData(updatedData)
         }
-        let heightInMeters = heightDouble / 100.0
-        let bmi = weightDouble / (heightInMeters * heightInMeters)
-        return bmi
+        navigationController?.pushViewController(informationVC, animated: true)
     }
-}
-
-#Preview {
-    ProfileVC()
+    
+    private func updateUserData(_ userData: UserData) {
+        currentUserData = userData
+        updateUI()
+        onDataUpdated?(userData)
+    }
 }

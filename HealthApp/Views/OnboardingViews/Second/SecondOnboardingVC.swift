@@ -29,9 +29,13 @@ class SecondOnboardingVC: UIViewController {
         setupUI()
     }
     
+    
     private func setupUI() {
+        navigationController?.setNavigationBarHidden(true, animated: false)
         continueButton.backgroundColor = UIColor(named: "inactiveButton")
         continueButton.layer.cornerRadius = 16
+        continueButton.setTitleColor(.white, for: .disabled)
+        continueButton.isEnabled = false
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(UINib(nibName: "SelectableOptionCell", bundle: nil), forCellWithReuseIdentifier: "OptionCell")

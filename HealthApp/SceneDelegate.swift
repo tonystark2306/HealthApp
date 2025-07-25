@@ -15,10 +15,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
-
+        
         window = UIWindow(windowScene: windowScene)
-        let firstOnboarding = FirstOnboardingVC()
-        window?.rootViewController = UINavigationController(rootViewController: firstOnboarding)
+
+        let hasSeenOnboarding = UserDefaults.standard.bool(forKey: "hasSeenOnboarding")
+
+        if hasSeenOnboarding {
+            let homeVC = MainTabBarController()
+            window?.rootViewController = UINavigationController(rootViewController: homeVC)
+        } else {
+            let firstOnboarding = FirstOnboardingVC()
+            window?.rootViewController = UINavigationController(rootViewController: firstOnboarding)
+        }
+
         window?.makeKeyAndVisible()
     }
 }

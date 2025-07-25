@@ -30,7 +30,6 @@ class CustomTF: UIView {
         let nibView = nib.instantiate(withOwner: self).first as! UIView
         
         addSubview(nibView)
-        
         nibView.translatesAutoresizingMaskIntoConstraints = false
         nibView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         nibView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
