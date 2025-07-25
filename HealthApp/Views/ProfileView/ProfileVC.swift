@@ -15,7 +15,6 @@ class ProfileVC: UIViewController {
     @IBOutlet weak var weightValue: UILabel!
     @IBOutlet weak var heightValue: UILabel!
     @IBOutlet weak var genderValue: UILabel!
-    @IBOutlet weak var editButton: UIButton!
     var onDataUpdated: ((UserData) -> Void)?
     var onProfileDeleted: (() -> Void)?
     

@@ -93,7 +93,15 @@ extension ReportVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 12
+        if logs.isEmpty {
+            if section == 0 {
+                return 24
+            } else {
+                return 0
+            }
+        } else {
+            return 12
+        }
     }
 
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {

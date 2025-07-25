@@ -6,7 +6,6 @@
 //
 import Foundation
 
-// MARK: - UserDataManager
 class UserDataManager {
     static let shared = UserDataManager()
     
@@ -60,17 +59,14 @@ class UserDataManager {
     func updateUserData(_ updatedData: UserData) {
         guard let existingData = currentUserData,
               existingData.id == updatedData.id else {
-            // If no existing data or different ID, save as new
             saveUserData(updatedData)
             return
         }
-        
-        // Update existing data
+
         currentUserData = updatedData
     }
 }
 
-// MARK: - UserData Codable Extension
 extension UserData: Codable {
     enum CodingKeys: String, CodingKey {
         case id, firstName, lastName, weight, height, gender
