@@ -12,7 +12,7 @@ class MainTabBarController: UITabBarController {
     private func setupTabBarAppearance() {
         
         tabBar.tintColor = UIColor(named: "activeButton")
-        tabBar.unselectedItemTintColor = .gray
+        tabBar.unselectedItemTintColor = .neutral4
         tabBar.backgroundColor = .white
 
         tabBar.layer.shadowColor = UIColor.black.cgColor
