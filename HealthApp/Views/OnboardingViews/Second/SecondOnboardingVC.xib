@@ -23,7 +23,7 @@
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Which heart health issue concerns you the most?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nsn-EX-S7l">
                     <rect key="frame" x="33" y="142" width="327" height="62.333333333333343"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
-                    <color key="textColor" name="neutral1"/>
+                    <color key="textColor" name="textColor2"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="K8s-ax-dBQ">
@@ -52,7 +52,7 @@
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
-            <color key="backgroundColor" name="bgColor"/>
+            <color key="backgroundColor" name="onboardingBg"/>
             <constraints>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="K8s-ax-dBQ" secondAttribute="trailing" constant="12" id="22D-gF-z6c"/>
                 <constraint firstAttribute="trailing" secondItem="Nsn-EX-S7l" secondAttribute="trailing" constant="33" id="4I3-jG-AM1"/>
@@ -72,8 +72,11 @@
         <namedColor name="bgColor">
             <color red="0.96078431372549022" green="0.96078431372549022" blue="0.97254901960784312" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="neutral1">
-            <color red="0.18431372549019609" green="0.20784313725490197" blue="0.28627450980392155" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="onboardingBg">
+            <color red="0.95686274509803926" green="0.96470588235294119" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="textColor2">
+            <color red="0.17647058823529413" green="0.19215686274509805" blue="0.25882352941176473" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
