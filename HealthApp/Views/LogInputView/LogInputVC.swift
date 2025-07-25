@@ -79,6 +79,3 @@ class LogInputVC: UIViewController {
     }
 }
 
-#Preview {
-    LogInputVC()
-}

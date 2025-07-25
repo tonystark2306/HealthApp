@@ -154,7 +154,6 @@
                         <constraint firstAttribute="trailing" secondItem="hNT-cR-nnZ" secondAttribute="trailing" constant="16" id="SWO-Ly-WLS"/>
                         <constraint firstAttribute="width" secondItem="8r2-2l-3Lk" secondAttribute="height" multiplier="338:215" id="eMD-SE-N7H"/>
                         <constraint firstItem="hNT-cR-nnZ" firstAttribute="top" secondItem="8r2-2l-3Lk" secondAttribute="top" constant="16" id="jNE-6z-BH5"/>
-                        <constraint firstItem="hNT-cR-nnZ" firstAttribute="leading" secondItem="8r2-2l-3Lk" secondAttribute="leading" constant="16" id="yI4-GA-Ckd"/>
                     </constraints>
                 </view>
             </subviews>
