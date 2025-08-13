@@ -90,7 +90,7 @@ class ReportVC: UIViewController {
                     realm.add(newLog)
                 }
             } catch {
-                print("Error saving log: \(error)")
+                print("Error save: \(error)")
             }
         }
         let navController = UINavigationController(rootViewController: logVC)
@@ -150,18 +150,33 @@ extension ReportVC: UITableViewDelegate, UITableViewDataSource {
         return headerView
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            guard let logs = logs, indexPath.section < logs.count else { return }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (_, _, completionHandler) in
+            guard let self = self, let logs = self.logs, indexPath.section < logs.count else {
+                completionHandler(false)
+                return
+            }
+            
             let logToDelete = logs[indexPath.section]
             
             do {
-                try realm.write {
-                    realm.delete(logToDelete)
+                try self.realm.write {
+                    self.realm.delete(logToDelete)
                 }
+                completionHandler(true)
             } catch {
-                print("Error deleting log: \(error)")
+                print("Error delete: \(error)")
+                completionHandler(false)
             }
         }
+        
+        deleteAction.backgroundColor = .systemRed
+        deleteAction.image = UIImage(systemName: "trash")
+        
+        let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
+        configuration.performsFirstActionWithFullSwipe = true
+        
+        return configuration
     }
 }

@@ -6,15 +6,9 @@ class InfoVC: UIViewController {
     var onDataUpdated: ((UserData) -> Void)?
     
     @IBOutlet weak var firstNameTF: CustomTF!
-    
-    
     @IBOutlet weak var lastNameTF: CustomTF!
-    
     @IBOutlet weak var genderSC: UISegmentedControl!
-    
     @IBOutlet weak var weightTF: CustomTF!
-    
-    
     @IBOutlet weak var updateButton: UIButton!
     @IBOutlet weak var heightTF: CustomTF!
     private var selectedGender: String = "Male"

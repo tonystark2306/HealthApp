@@ -4,41 +4,39 @@
 //
 //  Created by iKame Elite Fresher 2025 on 7/17/25.
 //
+
 import Foundation
+import RealmSwift
 
 class UserDataManager {
     static let shared = UserDataManager()
     
-    private let userDefaults = UserDefaults.standard
-    private let userDataKey = "SavedUserData"
+    private let realm: Realm
     
-    private init() {}
+    private init() {
+        do {
+            realm = try Realm()
+        } catch {
+            fatalError("Failed: \(error)")
+        }
+    }
     
     var currentUserData: UserData? {
         get {
-            guard let data = userDefaults.data(forKey: userDataKey) else {
-                return nil
-            }
-            
-            do {
-                let userData = try JSONDecoder().decode(UserData.self, from: data)
-                return userData
-            } catch {
-                print("Error decoding user data: \(error)")
-                userDefaults.removeObject(forKey: userDataKey)
-                return nil
-            }
+            return realm.objects(UserData.self).first
         }
         set {
-            if let userData = newValue {
-                do {
-                    let data = try JSONEncoder().encode(userData)
-                    userDefaults.set(data, forKey: userDataKey)
-                } catch {
-                    print("Error encoding user data: \(error)")
+            do {
+                try realm.write {
+                    if let userData = newValue {
+                        realm.add(userData, update: .modified)
+                    } else {
+                        let allUsers = realm.objects(UserData.self)
+                        realm.delete(allUsers)
+                    }
                 }
-            } else {
-                userDefaults.removeObject(forKey: userDataKey)
+            } catch {
+                print("Error save: \(error)")
             }
         }
     }
@@ -48,46 +46,23 @@ class UserDataManager {
     }
     
     func saveUserData(_ userData: UserData) {
-        currentUserData = userData
+        do {
+            try realm.write {
+                realm.add(userData, update: .modified)
+            }
+        } catch {
+            print("Error save: \(error)")
+        }
     }
     
     func deleteUserData() {
-        currentUserData = nil
-    }
-    
-    func updateUserData(_ updatedData: UserData) {
-        guard let existingData = currentUserData,
-              existingData.id == updatedData.id else {
-            saveUserData(updatedData)
-            return
+        do {
+            try realm.write {
+                let allUsers = realm.objects(UserData.self)
+                realm.delete(allUsers)
+            }
+        } catch {
+            print("Error delete: \(error)")
         }
-
-        currentUserData = updatedData
-    }
-}
-
-extension UserData: Codable {
-    enum CodingKeys: String, CodingKey {
-        case id, firstName, lastName, weight, height, gender
-    }
-    
-    init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decode(UUID.self, forKey: .id)
-        firstName = try container.decode(String.self, forKey: .firstName)
-        lastName = try container.decode(String.self, forKey: .lastName)
-        weight = try container.decode(String.self, forKey: .weight)
-        height = try container.decode(String.self, forKey: .height)
-        gender = try container.decode(String.self, forKey: .gender)
-    }
-    
-    func encode(to encoder: Encoder) throws {
-        var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(id, forKey: .id)
-        try container.encode(firstName, forKey: .firstName)
-        try container.encode(lastName, forKey: .lastName)
-        try container.encode(weight, forKey: .weight)
-        try container.encode(height, forKey: .height)
-        try container.encode(gender, forKey: .gender)
     }
 }

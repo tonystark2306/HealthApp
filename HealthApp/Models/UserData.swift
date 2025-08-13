@@ -6,17 +6,23 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct UserData: Equatable {
-    let id: UUID
-    var firstName: String
-    var lastName: String
-    var weight: String
-    var height: String
-    var gender: String
+class UserData: Object {
+    @Persisted var id: String = UUID().uuidString
+    @Persisted var firstName: String = ""
+    @Persisted var lastName: String = ""
+    @Persisted var weight: String = ""
+    @Persisted var height: String = ""
+    @Persisted var gender: String = ""
     
-    init(firstName: String, lastName: String, weight: String, height: String, gender: String) {
-        self.id = UUID()
+    override static func primaryKey() -> String? {
+        return "id"
+    }
+    
+    convenience init(firstName: String, lastName: String, weight: String, height: String, gender: String) {
+        self.init()
+        self.id = UUID().uuidString
         self.firstName = firstName
         self.lastName = lastName
         self.weight = weight
@@ -24,7 +30,8 @@ struct UserData: Equatable {
         self.gender = gender
     }
     
-    init(id: UUID, firstName: String, lastName: String, weight: String, height: String, gender: String) {
+    convenience init(id: String, firstName: String, lastName: String, weight: String, height: String, gender: String) {
+        self.init()
         self.id = id
         self.firstName = firstName
         self.lastName = lastName
@@ -32,9 +39,10 @@ struct UserData: Equatable {
         self.height = height
         self.gender = gender
     }
-    
+}
+
+extension UserData {
     static func == (lhs: UserData, rhs: UserData) -> Bool {
         return lhs.id == rhs.id
     }
 }
-

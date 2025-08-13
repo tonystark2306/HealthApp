@@ -20,6 +20,4 @@ class FirstOnboardingVC: UIViewController {
     
 
 }
-#Preview {
-    FirstOnboardingVC()
-}
+
