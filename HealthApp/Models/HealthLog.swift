@@ -9,15 +9,12 @@ import UIKit
 import RealmSwift
 
 class HealthLog: Object {
-    @Persisted var id: String = UUID().uuidString
+    @Persisted(primaryKey: true) var id: String = UUID().uuidString
     @Persisted var pulse: Int = 0
     @Persisted var hrv: Int = 0
     @Persisted var createdAt: Date = Date()
     
-    override static func primaryKey() -> String? {
-        return "id"
-    }
-    
+
     convenience init(pulse: Int, hrv: Int) {
         self.init()
         self.id = UUID().uuidString

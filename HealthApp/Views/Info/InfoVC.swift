@@ -87,10 +87,6 @@ class InfoVC: UIViewController {
         updateButton.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    private func setupConstraints() {
-        
-    }
-    
     private func setupActions() {
         genderSC.addTarget(self, action: #selector(genderSegmentChanged), for: .valueChanged)
         updateButton.addTarget(self, action: #selector(updateButtonTapped), for: .touchUpInside)

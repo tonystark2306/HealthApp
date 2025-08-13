@@ -29,13 +29,11 @@ class SettingVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
-//        navigationController?.setNavigationBarHidden(false, animated: false)
         setupTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        //tabBarController?.tabBar.isHidden = false
     }
     
     private func setupNavigationBar() {

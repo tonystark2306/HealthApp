@@ -31,7 +31,6 @@ class LogCell: UITableViewCell {
         containerView.layer.masksToBounds = true
     }
     
-    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
@@ -47,7 +46,6 @@ class LogCell: UITableViewCell {
         bpmHrv.textColor = log.statusColor
         bpmPulse.textColor = log.statusColor
     }
-    
 
     func configureEmpty() {
         setupContainerView()
