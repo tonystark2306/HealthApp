@@ -4,7 +4,7 @@ class MainTabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        //navigationController?.setNavigationBarHidden(true, animated: false)
         setupTabBarAppearance()
         setupViewControllers()
     }
@@ -33,7 +33,7 @@ class MainTabBarController: UITabBarController {
     private func setupViewControllers() {
         let vc1 = UINavigationController(rootViewController: ReportVC())
         let vc2 = UINavigationController(rootViewController: SettingVC())
-
+              
         vc1.tabBarItem = UITabBarItem(title: "Report", image: UIImage(named: "reportTbIcon"), tag: 0)
         vc2.tabBarItem = UITabBarItem(title: "Settings", image: UIImage(named: "settingTbIcon"), tag: 1)
 
@@ -41,6 +41,3 @@ class MainTabBarController: UITabBarController {
     }
 }
 
-#Preview {
-    MainTabBarController()
-}

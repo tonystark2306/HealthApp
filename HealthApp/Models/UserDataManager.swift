@@ -25,7 +25,6 @@ class UserDataManager {
                 return userData
             } catch {
                 print("Error decoding user data: \(error)")
-                // Xóa dữ liệu bị lỗi
                 userDefaults.removeObject(forKey: userDataKey)
                 return nil
             }

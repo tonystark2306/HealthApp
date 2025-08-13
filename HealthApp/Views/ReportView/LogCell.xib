@@ -120,7 +120,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="bpmHrv" destination="Hwn-7D-Bm4" id="yQg-JN-f46"/>
+                <outlet property="bpmHrv" destination="Hwn-7D-Bm4" id="0vp-Om-bhq"/>
                 <outlet property="bpmPulse" destination="PUv-KE-pfL" id="X30-3J-zqN"/>
                 <outlet property="containerView" destination="H2p-sc-9uM" id="EDW-l7-j4s"/>
                 <outlet property="hrvValue" destination="dO0-Tb-uDe" id="dEA-2b-wfK"/>

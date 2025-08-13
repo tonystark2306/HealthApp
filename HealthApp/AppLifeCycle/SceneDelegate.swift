@@ -22,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         if hasSeenOnboarding {
             let homeVC = MainTabBarController()
-            window?.rootViewController = UINavigationController(rootViewController: homeVC)
+            window?.rootViewController = homeVC
         } else {
             let firstOnboarding = FirstOnboardingVC()
             window?.rootViewController = UINavigationController(rootViewController: firstOnboarding)

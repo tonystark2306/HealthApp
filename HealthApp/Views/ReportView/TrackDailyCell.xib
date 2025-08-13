@@ -50,7 +50,9 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="clickText" destination="cOM-61-s19" id="nMG-Zl-p4g"/>
                 <outlet property="containerView" destination="H2p-sc-9uM" id="cr7-MK-fm5"/>
+                <outlet property="trackDailyText" destination="X2g-hb-nHB" id="3ip-dC-0z4"/>
             </connections>
             <point key="canvasLocation" x="135.87786259541986" y="1.4084507042253522"/>
         </tableViewCell>

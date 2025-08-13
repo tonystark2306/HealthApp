@@ -29,12 +29,13 @@ class SettingVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationBar()
+//        navigationController?.setNavigationBarHidden(false, animated: false)
         setupTableView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tabBarController?.tabBar.isHidden = false
+        //tabBarController?.tabBar.isHidden = false
     }
     
     private func setupNavigationBar() {
@@ -55,11 +56,8 @@ class SettingVC: UIViewController {
         
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
-        tableView.showsVerticalScrollIndicator = false
-        
-        if #available(iOS 15.0, *) {
-            tableView.sectionHeaderTopPadding = 0
-        }
+        tableView.sectionHeaderTopPadding = 0
+    
     }
 }
 
@@ -176,3 +174,4 @@ extension SettingVC: UITableViewDelegate {
         }
     }
 }
+

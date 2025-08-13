@@ -100,7 +100,3 @@ extension FourthOnboardingVC: UICollectionViewDelegateFlowLayout {
         return CGSize(width: itemWidth, height: itemHeight)
     }
 }
-
-#Preview {
-    FourthOnboardingVC()
-}

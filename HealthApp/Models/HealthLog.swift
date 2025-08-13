@@ -6,10 +6,25 @@
 //
 
 import UIKit
+import RealmSwift
 
-struct HealthLog {
-    let pulse: Int
-    let hrv: Int
+class HealthLog: Object {
+    @Persisted var id: String = UUID().uuidString
+    @Persisted var pulse: Int = 0
+    @Persisted var hrv: Int = 0
+    @Persisted var createdAt: Date = Date()
+    
+    override static func primaryKey() -> String? {
+        return "id"
+    }
+    
+    convenience init(pulse: Int, hrv: Int) {
+        self.init()
+        self.id = UUID().uuidString
+        self.pulse = pulse
+        self.hrv = hrv
+        self.createdAt = Date()
+    }
 
     var status: String {
         switch pulse {
@@ -28,4 +43,3 @@ struct HealthLog {
         }
     }
 }
-

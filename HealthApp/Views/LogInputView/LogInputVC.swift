@@ -17,6 +17,12 @@ class LogInputVC: UIViewController {
     @IBOutlet weak var hrvTF: CustomTF!
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupUI()
+        setupNavigationBar()
+        setupTargets()
+    }
+    
+    private func setupUI() {
         title = "Information"
         pulseTF.textField.placeholder = "Enter your pulse"
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: 0))
@@ -31,8 +37,6 @@ class LogInputVC: UIViewController {
         addButton.tintColor = .white
         addButton.isEnabled = false
         addButton.setTitleColor(.white, for: .disabled)
-        setupNavigationBar()
-        setupTargets()
     }
     
     private func setupNavigationBar() {

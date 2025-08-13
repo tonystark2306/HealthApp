@@ -17,7 +17,6 @@ class LogCell: UITableViewCell {
     
     @IBOutlet weak var bpmPulse: UILabel!
     
-    
     @IBOutlet weak var hrvValue: UILabel!
     
     @IBOutlet weak var bpmHrv: UILabel!

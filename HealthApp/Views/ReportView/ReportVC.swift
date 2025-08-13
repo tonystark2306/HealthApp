@@ -6,33 +6,65 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ReportVC: UIViewController {
     
     @IBOutlet weak var heartButton: UIButton!
-    
     @IBOutlet weak var tableView: UITableView!
     
-    private var logs: [HealthLog] = [] {
-        didSet {
-            updateUI()
+    private var realm: Realm!
+    private var logs: Results<HealthLog>?
+    private var notificationToken: NotificationToken?
+    
+    private func updateUI() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+            self.tableView.isHidden = false
         }
     }
     
-    private func updateUI() {
-        tableView.reloadData()
-        tableView.isHidden = false
-    }
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.setNavigationBarHidden(true, animated: false)
-        setupViews()
+        setupNavigationBar()
+        setupUI()
+        setupRealm()
     }
     
+    private func setupNavigationBar() {
+        let titleLabel = UILabel()
+        titleLabel.text = "Health Guru"
+        titleLabel.font = .systemFont(ofSize: 32, weight: .semibold)
+        titleLabel.textColor = UIColor.neutral1
+        titleLabel.sizeToFit()
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: titleLabel)
+    }
     
-    private func setupViews() {
+    private func setupRealm() {
+        do {
+            realm = try Realm()
+            loadLogs()
+        } catch {
+            print("Error initializing Realm: \(error)")
+        }
+    }
+    
+    deinit {
+        notificationToken?.invalidate()
+    }
+    
+    private func loadLogs() {
+        guard let realm = realm else { return }
+        
+        logs = realm.objects(HealthLog.self).sorted(byKeyPath: "createdAt", ascending: false)
+        
+        notificationToken = logs?.observe { [weak self] _ in
+            self?.updateUI()
+        }
+    }
+    
+    private func setupUI() {
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
         tableView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
@@ -52,17 +84,23 @@ class ReportVC: UIViewController {
     @IBAction func heartButtonTapped(_ sender: Any) {
         let logVC = LogInputVC()
         logVC.onAddLog = { [weak self] newLog in
-            self?.logs.insert(newLog, at: 0)
+            guard let realm = self?.realm else { return }
+            do {
+                try realm.write {
+                    realm.add(newLog)
+                }
+            } catch {
+                print("Error saving log: \(error)")
+            }
         }
         let navController = UINavigationController(rootViewController: logVC)
         present(navController, animated: true)
     }
-    
 }
 
 extension ReportVC: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return logs.isEmpty ? 2 : logs.count
+        return logs?.isEmpty != false ? 2 : logs!.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -70,7 +108,7 @@ extension ReportVC: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if logs.isEmpty {
+        if logs?.isEmpty != false {
             if indexPath.section == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "LogCell", for: indexPath) as! LogCell
                 cell.selectionStyle = .none
@@ -87,13 +125,15 @@ extension ReportVC: UITableViewDelegate, UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "LogCell", for: indexPath) as! LogCell
             cell.selectionStyle = .none
             cell.backgroundColor = .clear
-            cell.configure(with: logs[indexPath.section])
+            if let logs = logs, indexPath.section < logs.count {
+                cell.configure(with: logs[indexPath.section])
+            }
             return cell
         }
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if logs.isEmpty {
+        if logs?.isEmpty != false {
             if section == 0 {
                 return 24
             } else {
@@ -109,8 +149,4 @@ extension ReportVC: UITableViewDelegate, UITableViewDataSource {
         headerView.backgroundColor = .clear
         return headerView
     }
-}
-
-#Preview {
-    ReportVC()
 }
