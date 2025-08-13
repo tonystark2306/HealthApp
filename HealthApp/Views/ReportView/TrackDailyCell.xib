@@ -33,7 +33,7 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Click heart icon to log your data" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cOM-61-s19">
                         <rect key="frame" x="16" y="48" width="206" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" name="neutral2"/>
+                        <color key="textColor" name="neutral22"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
@@ -59,8 +59,8 @@
     </objects>
     <resources>
         <image name="heartIcon" width="30.666666030883789" height="29.666666030883789"/>
-        <namedColor name="neutral2">
-            <color red="0.34901960784313724" green="0.38039215686274508" blue="0.47843137254901963" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="neutral22">
+            <color red="0.38039215686274508" green="0.41176470588235292" blue="0.49803921568627452" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="textColor2">
             <color red="0.17647058823529413" green="0.19215686274509805" blue="0.25882352941176473" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

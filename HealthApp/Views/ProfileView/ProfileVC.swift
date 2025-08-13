@@ -42,7 +42,6 @@ class ProfileVC: UIViewController {
     
     private func setupNavigationBar() {
         navigationController?.setNavigationBarHidden(false, animated: true)
-        
         navigationController?.navigationBar.titleTextAttributes = [
             NSAttributedString.Key.foregroundColor: UIColor.black,
             NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18, weight: .bold)

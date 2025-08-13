@@ -11,9 +11,7 @@ class LogCell: UITableViewCell {
     
     @IBOutlet weak var containerView: UIView!
     
-    
     @IBOutlet weak var pulseValue: UILabel!
-    
     
     @IBOutlet weak var bpmPulse: UILabel!
     
@@ -58,7 +56,11 @@ class LogCell: UITableViewCell {
         statusValue.text = "--"
         bpmPulse.text = "bpm"
         bpmHrv.text = "bpm"
-        
+        pulseValue.textColor = .neutral22
+        hrvValue.textColor = .neutral22
+        statusValue.textColor = .neutral22
+        bpmPulse.textColor = .neutral22
+        bpmHrv.textColor = .neutral22
     }
     
 }

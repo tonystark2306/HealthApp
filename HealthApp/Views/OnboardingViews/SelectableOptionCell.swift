@@ -38,13 +38,11 @@ class SelectableOptionCell: UICollectionViewCell {
             containerView.layer.borderWidth = 1.5
             containerView.layer.borderColor = UIColor.primary1.cgColor
             checkboxImageView.image = UIImage(named: "tickSquare")
-            checkboxImageView.tintColor = UIColor(red: 1.0, green: 0.33, blue: 0.45, alpha: 1.0)
         } else {
             containerView.layer.borderWidth = 0
             containerView.layer.borderColor = UIColor.white.cgColor
             containerView.backgroundColor = .white
             checkboxImageView.image = UIImage(named: "emptyTick")
-            checkboxImageView.tintColor = .systemGray3
             checkboxImageView.backgroundColor = UIColor(named: "Neutral4")
         }
     }

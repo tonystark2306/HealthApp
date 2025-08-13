@@ -149,4 +149,19 @@ extension ReportVC: UITableViewDelegate, UITableViewDataSource {
         headerView.backgroundColor = .clear
         return headerView
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            guard let logs = logs, indexPath.section < logs.count else { return }
+            let logToDelete = logs[indexPath.section]
+            
+            do {
+                try realm.write {
+                    realm.delete(logToDelete)
+                }
+            } catch {
+                print("Error deleting log: \(error)")
+            }
+        }
+    }
 }
