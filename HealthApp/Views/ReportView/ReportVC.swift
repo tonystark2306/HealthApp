@@ -100,7 +100,10 @@ class ReportVC: UIViewController {
 
 extension ReportVC: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return logs?.isEmpty != false ? 2 : logs!.count
+        if logs?.isEmpty == false {
+            return logs?.count ?? 0
+        }
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
